@@ -11,10 +11,17 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var contactList: MutableList<String>
+    private lateinit var rvContact: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        rvContact = findViewById(R.id.contact_list)
+        contactList = mutableListOf()
+//        val sampleNames = listOf<String>("Alice", "Bob", "Eva", )
+
+
 
         getDogImageURL()
     }
@@ -22,9 +29,9 @@ class MainActivity : AppCompatActivity() {
     private fun getDogImageURL() {
         val client = AsyncHttpClient()
 
-        client["https://dog.ceo/api/breeds/image/random", object : JsonHttpResponseHandler() {
+        client["https://dog.ceo/api/breeds/image/random/20", object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Headers, json: JsonHttpResponseHandler.JSON) {
-                Log.d("Dog Success", "$json")
+                Log.d("Contact Success", "$json")
             }
 
             override fun onFailure(
@@ -33,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 errorResponse: String,
                 throwable: Throwable?
             ) {
-                Log.d("Dog Error", errorResponse)
+                Log.d("Contact Error", errorResponse)
             }
         }]
     }
